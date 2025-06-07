@@ -12,7 +12,8 @@ gitlab_output(lints, filename = "lintr_results.json")
 \item{filename}{The file name of the output report}
 }
 \description{
-Generate a report of the linting results using the \href{https://docs.gitlab.com/ci/testing/code_quality/#code-quality-report-format}{Gitlab} format.
+Generate a report of the linting results using the
+\href{https://docs.gitlab.com/ci/testing/code_quality/#code-quality-report-format}{Gitlab} format.
 The "severity" is set to "info" for all lint results, since lintr has no
 mechanism of classifying "severity".
 }
