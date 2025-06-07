@@ -241,7 +241,7 @@ test_that("gitlab_output() writes expected report", {
   tmpfile <- withr::local_tempfile()
   gitlab_output(lint(text = "x<-1"), filename = tmpfile)
 
-  expect_equal(
+  expect_identical(
     jsonlite::read_json(tmpfile),
     list(
       list(
@@ -252,7 +252,7 @@ test_that("gitlab_output() writes expected report", {
           list(
             path = "<text>",
             lines = list(
-              begin = 1
+              begin = 1L
             )
           ),
         severity = "info"

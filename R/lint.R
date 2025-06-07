@@ -614,7 +614,10 @@ sarif_output <- function(lints, filename = "lintr_results.sarif") {
         id = lint$linter,
         fullDescription = list(text = lint$message),
         defaultConfiguration = list(
-          level = switch(lint$type, style = "note", lint$type)
+          level = switch(lint$type,
+            style = "note",
+            lint$type
+          )
         )
       )
       sarif$runs[[1L]]$tool$driver$rules <- append(sarif$runs[[1L]]$tool$driver$rules, list(new_rule))
@@ -651,7 +654,8 @@ sarif_output <- function(lints, filename = "lintr_results.sarif") {
 
 #' Gitlab Report for lint results
 #'
-#' Generate a report of the linting results using the [Gitlab](https://docs.gitlab.com/ci/testing/code_quality/#code-quality-report-format) format.
+#' Generate a report of the linting results using the
+#' [Gitlab](https://docs.gitlab.com/ci/testing/code_quality/#code-quality-report-format) format.
 #' The "severity" is set to "info" for all lint results, since lintr has no
 #' mechanism of classifying "severity".
 #'
@@ -668,11 +672,17 @@ gitlab_output <- function(lints, filename = "lintr_results.json") {
   # (copied from https://docs.gitlab.com/ci/testing/code_quality/#code-quality-report-format)
   # ==============================
   # description	String	A human-readable description of the code quality violation.
-  # check_name	String	A unique name representing the check, or rule, associated with this violation.
-  # fingerprint	String	A unique fingerprint to identify this specific code quality violation, such as a hash of its contents.
-  # location.path	String	The file containing the code quality violation, expressed as a relative path in the repository. Do not prefix with ./.
-  # location.lines.begin or location.positions.begin.line	Integer	The line on which the code quality violation occurred.
-  # severity	String	The severity of the violation, can be one of info, minor, major, critical, or blocker.
+  # check_name	String	A unique name representing the check, or rule, associated
+  #                     with this violation.
+  # fingerprint	String	A unique fingerprint to identify this specific code
+  #                     quality violation, such as a hash of its contents.
+  # location.path	String	The file containing the code quality violation,
+  #                       expressed as a relative path in the repository.
+  #                       Do not prefix with ./.
+  # location.lines.begin or location.positions.begin.line	Integer
+  #       The line on which the code quality violation occurred.
+  # severity	String	The severity of the violation, can be one of info,
+  #                   minor, major, critical, or blocker.
 
   # Gitlab format as R data structure
   res <-
@@ -686,10 +696,9 @@ gitlab_output <- function(lints, filename = "lintr_results.json") {
           location =
             list(
               path = lint$filename,
-              lines =
-                list(
-                  begin = lint$line_number
-                )
+              lines = list(
+                begin = lint$line_number
+              )
             ),
           severity = "info"
         )
