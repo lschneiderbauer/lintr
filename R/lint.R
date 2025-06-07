@@ -614,10 +614,7 @@ sarif_output <- function(lints, filename = "lintr_results.sarif") {
         id = lint$linter,
         fullDescription = list(text = lint$message),
         defaultConfiguration = list(
-          level = switch(lint$type,
-            style = "note",
-            lint$type
-          )
+          level = switch(lint$type, style = "note", lint$type)
         )
       )
       sarif$runs[[1L]]$tool$driver$rules <- append(sarif$runs[[1L]]$tool$driver$rules, list(new_rule))
